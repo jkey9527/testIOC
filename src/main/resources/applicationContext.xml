@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--使用setter方法注入-->
+    <bean id="student" class="com.java.entity.Student">
+        <property name="id" value="1"></property>
+        <property name="name" value="李四"></property>
+    </bean>
+
+    <!--使用构造器注入-->
+    <bean id="teacher" class="com.java.entity.Teacher">
+        <constructor-arg index="0" type="java.lang.Integer" value="1"></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String" value="男"></constructor-arg>
+        <constructor-arg index="2" type="java.lang.String" value="王老师"></constructor-arg>
+    </bean>
+
+    <!--复杂类型的注入-->
+    <bean id="school" class="com.java.entity.School">
+        <property name="id" value="1"></property>
+        <property name="teacher" ref="teacher"></property>
+        <property name="student" ref="student"></property>
+    </bean>
+
+    <!--静态工厂实例化bean-->
+    <bean id="studentFactory" class="com.java.factory.StudentFactory" factory-method="createStudent">
+    </bean>
+
+    <!--非静态工厂实例化bean-->
+    <bean id="teachFactory" class="com.java.factory.TeachFactory"></bean>
+    <bean id="teacher1" class="com.java.entity.Teacher" factory-method="creatTeacher" factory-bean="teachFactory"></bean>
+</beans>
